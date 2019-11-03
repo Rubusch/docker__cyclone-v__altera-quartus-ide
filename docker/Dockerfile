@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Lothar Rubusch <lotophagon@protonmail.com>
 
 ## RESOURCES
@@ -8,6 +8,9 @@ MAINTAINER Lothar Rubusch <lotophagon@protonmail.com>
 ##
 ## Matt Ownby
 ## http://my-cool-projects.blogspot.com/2018/10/how-to-dockerize-intel-quartus-1801.html
+##
+## Quartus II was renamed to Quartus Prime (after Intel bought Altera)
+
 
 WORKDIR /root
 
