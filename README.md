@@ -21,8 +21,16 @@ https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7UcOVMm39A6VdMbWWq-e_c
 ## Build
 
 ```
-$ cd ./docker/
 $ time docker build --no-cache -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
+$ time docker run -ti --rm -v $PWD/output:/mnt rubuschl/de1-soc-board:20191102182643
+```
+
+
+In order to make things easier, provide pre-downloaded Quartus images on a local webserver, then build the docker container as follows.
+
+```
+$ cd ./docker/
+$ docker build --build-arg MIRROR=http://localhost/quartus -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
 $ time docker run -ti --rm -v $PWD/output:/mnt rubuschl/de1-soc-board:20191102182643
 ```
 
