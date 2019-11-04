@@ -53,10 +53,9 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN cd /tmp && wget -q $MIRROR$QUARTUS && \
-        wget -q $MIRROR$QUARTUS_UPDATE && \
-        chmod +x $QUARTUS_UPDATE && \
-        for DEV_FILE in $DEVICE_FILES; do wget -q $MIRROR$DEV_FILE; done && \
+RUN cd /tmp && wget $MIRROR$QUARTUS && \
+               wget $MIRROR$QUARTUS_UPDATE && chmod +x $QUARTUS_UPDATE && \
+        for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done && \
         chmod +x $QUARTUS && \
         ./$QUARTUS --mode unattended --installdir /opt/altera/ && \
         rm /tmp/* /opt/altera/uninstall -rf
