@@ -23,7 +23,6 @@ https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7UcOVMm39A6VdMbWWq-e_c
 ```
 $ cd ./docker/
 $ time docker build --no-cache -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
-$ docker run --rm -ti -v /sys:/sys:ro -v $PWD/output:/build rubuschl/de1-soc-board:20191104161353 /bin/bash
 ```
 
 
@@ -37,6 +36,21 @@ $ docker build --build-arg MIRROR=http://localhost/quartus -t rubuschl/de1-soc-b
 TODO: use ```-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ``` for the xserver
 TODO: ```--privileged``` mode for accessing hw devices?
 
-## Target
+
+## Usage
+
+Prepare the host system, make the x server accessible
+
+```
+$ xhost +"local:docker@"
+```
+
+
+Login to the docker container
+
+```
+$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/output:/build rubuschl/de1-soc-board:20191104161353 /bin/bash
+docker$ /opt/altera/quartus/bin/quartus
+```
 
 TODO working with the target for the DE1-SoC usually means to flash an SD card.
