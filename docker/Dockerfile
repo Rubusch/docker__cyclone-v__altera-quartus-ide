@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:xenial
 MAINTAINER Lothar Rubusch <lotophagon@protonmail.com>
 
 ## RESOURCES
