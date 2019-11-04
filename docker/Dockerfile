@@ -18,6 +18,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge
 
+ARG QUARTUS="Quartus-pro-16.1.0.196-linux-complete"
+
 # ARG MIRROR=http://download.altera.com/akdlm/software/acdsinst/16.1/196/ib_installers/
 # ARG QUARTUS=QuartusLiteSetup-16.1.0.196-linux.run
 # ARG QUARTUS_UPDATE=QuartusSetup-16.1.2.203-linux.run
@@ -28,7 +30,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         ca-certificates \
         lib32ncurses5-dev \
         libc6:i386 \
-        libcrypto++9v5 \
         libfontconfig1 \
         libglib2.0-0 \
         libncurses5:i386 \
@@ -72,6 +73,12 @@ RUN apt-get install -y   \
             vim \
             screen \
             minicom
+
+
+################################################################################
+## copy my personal copy of Quartus onto the container
+COPY $QUARTUS.tar /root/$QUARTUS.tar
+RUN cd /opt && tar xf /root/$QUARTUS.tar
 
 
 ################################################################################
