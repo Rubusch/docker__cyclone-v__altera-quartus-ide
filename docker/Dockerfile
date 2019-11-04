@@ -53,18 +53,29 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+#RUN cd /tmp && wget $MIRROR$QUARTUS && \
+        #        wget $MIRROR$QUARTUS_UPDATE && chmod +x $QUARTUS_UPDATE && \
+        # for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done && \
+        # chmod +x $QUARTUS && \
+        # ./$QUARTUS --mode unattended --installdir /opt/altera/ && \
+        # rm /tmp/* /opt/altera/uninstall -rf
+
+
 RUN cd /tmp && wget $MIRROR$QUARTUS && \
-               wget $MIRROR$QUARTUS_UPDATE && chmod +x $QUARTUS_UPDATE && \
         for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done && \
         chmod +x $QUARTUS && \
         ./$QUARTUS --mode unattended --installdir /opt/altera/ && \
         rm /tmp/* /opt/altera/uninstall -rf
 
 # these files conflict with the Ubuntu versions and cause random segfaults
-RUN rm /opt/altera/quartus/linux64/libccl_curl_drl.so \
-        /opt/altera/quartus/linux64/libcrypto.so.1.0.0 \
-        /opt/altera/quartus/linux64/libcurl.so.4 \
-        /opt/altera/quartus/linux64/libssl.so.1.0.0
+# RUN rm /opt/altera/quartus/linux64/libccl_curl_drl.so \
+#         /opt/altera/quartus/linux64/libcrypto.so.1.0.0 \
+#         /opt/altera/quartus/linux64/libcurl.so.4 \
+#         /opt/altera/quartus/linux64/libssl.so.1.0.0
+
+# RUN rm /opt/altera/quartus/linux64/libccl_curl_drl.so \
+#         /opt/altera/quartus/linux64/libcrypto.so.1.0.0 \
+#         /opt/altera/quartus/linux64/libssl.so.1.0.0
 
 
 ## TODO rm
