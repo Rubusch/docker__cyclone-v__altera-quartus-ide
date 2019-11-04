@@ -17,6 +17,10 @@ Getting started with the DE1-SoC video serie
 https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7UcOVMm39A6VdMbWWq-e_c
 
 
+Cornell University Material on the DE1-SoC Board (links)
+https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/index.html
+
+
 
 ## Build
 
