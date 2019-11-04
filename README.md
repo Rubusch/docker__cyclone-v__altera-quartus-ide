@@ -33,8 +33,6 @@ $ docker build --build-arg MIRROR=http://localhost/quartus -t rubuschl/de1-soc-b
 ```
 
 
-TODO: use ```-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ``` for the xserver
-TODO: ```--privileged``` mode for accessing hw devices?
 
 
 ## Usage
@@ -54,3 +52,4 @@ docker$ /opt/altera/quartus/bin/quartus
 ```
 
 TODO working with the target for the DE1-SoC usually means to flash an SD card.
+TODO: ```--privileged``` mode for accessing hw devices?
