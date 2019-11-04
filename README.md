@@ -21,30 +21,21 @@ https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7UcOVMm39A6VdMbWWq-e_c
 ## Build
 
 ```
+$ cd ./docker/
 $ time docker build --no-cache -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
-$ time docker run -ti --rm -v $PWD/output:/mnt rubuschl/de1-soc-board:20191102182643
+$ docker run --rm -ti -v /sys:/sys:ro -v $PWD/output:/build rubuschl/de1-soc-board:20191104161353 /bin/bash
 ```
 
 
 In order to make things easier, provide pre-downloaded Quartus images on a local webserver, then build the docker container as follows.
 
 ```
-$ cd ./docker/
 $ docker build --build-arg MIRROR=http://localhost/quartus -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
-$ time docker run -ti --rm -v $PWD/output:/mnt rubuschl/de1-soc-board:20191102182643
 ```
 
 
-## Debug
-
-**NOTE**: privileged mode is not _safe_, this docker container is supposed rather to allow for archiving of the toolchain
-
-
-```
-$ docker run -ti --privileged -v $PWD/output:/mnt rubuschl/de1-soc-board:20191102182643 /bin/bash
-docker $>
-```
-
+TODO: use ```-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ``` for the xserver
+TODO: ```--privileged``` mode for accessing hw devices?
 
 ## Target
 
