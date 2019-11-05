@@ -3,4 +3,5 @@
 ## prepare SDK environment
 source ~/env.sh
 
-# TODO build
+## start quartus
+/opt/altera/quartus/bin/quartus
