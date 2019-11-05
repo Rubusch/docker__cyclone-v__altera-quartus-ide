@@ -101,9 +101,6 @@ RUN cd /opt && chmod +x $QUARTUS
 RUN cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --installdir /opt/altera
 RUN cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
 
-## fix for blank qt windows
-RUN echo "export QT_X11_NO_MITSHM=1" >> /root/.profile
-
 ################################################################################
 ## build command automation
 COPY env.sh /root/env.sh
