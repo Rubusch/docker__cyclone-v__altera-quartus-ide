@@ -18,9 +18,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge
 
-ARG QUARTUS="Quartus-pro-16.1.0.196-linux-complete"
 
-# ARG MIRROR=http://download.altera.com/akdlm/software/acdsinst/16.1/196/ib_installers/
+ARG QUARTUS="not-set"
+#ARG QUARTUS="Quartus-pro-16.1.0.196-linux-complete"
+#ARG MIRROR=http://download.altera.com/akdlm/software/acdsinst/16.1/196/ib_installers/
+
+
 # ARG QUARTUS=QuartusLiteSetup-16.1.0.196-linux.run
 # ARG QUARTUS_UPDATE=QuartusSetup-16.1.2.203-linux.run
 # ARG DEVICE_FILES="cyclonev-16.1.0.196.qdz cyclone-16.1.0.196.qdz"
