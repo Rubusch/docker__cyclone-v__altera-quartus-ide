@@ -31,20 +31,33 @@ $ cd docker
 $ time docker build -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
 ```
 
+Find the correct tag as follows.
+```
+$ docker images
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+rubuschl/de1-soc-board   20191104161353      cbf4cb380168        24 minutes ago      15.5GB
+ubuntu                   xenial              5f2bf26e3524        4 days ago          123MB
+```
+
+Here we take _20191104161353_ as an example tag.
+
 
 
 ## Usage
 
-Prepare the host system, make the x server accessible
+```
+$ xhost +"local:docker@"
+$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/output:/projects rubuschl/de1-soc-board:20191104161353
+```
+
+
+## Debug
+
+
+For debugging the container login to the docker container
 
 ```
 $ xhost +"local:docker@"
-```
-
-
-Login to the docker container
-
-```
 $ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/output:/projects rubuschl/de1-soc-board:20191104161353 /bin/bash
 ```
 
