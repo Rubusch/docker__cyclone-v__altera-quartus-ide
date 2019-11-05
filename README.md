@@ -24,19 +24,19 @@ https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/index.html
 
 ## Build
 
-```
-$ cd ./docker/
-$ time docker build --no-cache -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
-```
+Download a version of **Quartus** from Intel which fits the size and needs. E.g. Quartus Pro 16.x is around 15GB.
 
+In your configured webserver (test with localhost), create another directory _quartus_. Move the Quartus tarball into this directory.
 
-In order to make things easier, provide pre-downloaded Quartus images on a local webserver, then build the docker container as follows.
+Pass the exact name of the tarball as build argument to the docker build instruction.
 
 ```
-$ docker build --build-arg MIRROR=http://localhost/quartus -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
+$ sudo mkdir /var/www/html/quartus
+$ sudo mv <the downloaded quartus> /var/www/html/quartus/
+
+$ cd docker
+$ time docker build --build-arg QUARTUS="Quartus-pro-16.1.0.196-linux-complete" -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
 ```
-
-
 
 
 ## Usage
