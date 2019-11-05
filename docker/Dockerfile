@@ -18,11 +18,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge
 
+## Quartus 16.1 - freely available on the net (in 2019)
+## (comment the following out or adjust it for manually loading a quartus tarball)
 ARG QUARTUS=QuartusLiteSetup-16.1.0.196-linux.run
 ARG MIRROR=http://download.altera.com/akdlm/software/acdsinst/16.1/196/ib_installers/
 ARG QUARTUS=QuartusLiteSetup-16.1.0.196-linux.run
 ARG DEVICE_FILES="cyclonev-16.1.0.196.qdz cyclone-16.1.0.196.qdz"
-# ARG QUARTUS_UPDATE=QuartusSetup-16.1.2.203-linux.run ## not found
+###
 
 RUN dpkg --add-architecture i386
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -65,22 +67,14 @@ ENV LC_ALL en_US.UTF-8
 ## avoid blank qt windows
 ENV QT_X11_NO_MITSHM 1
 
-## (opt) tools for debugging and working
+## (opt) tools for debugging and working, e.g. X11-apps for testing the xserver via xclock
 RUN apt-get install -y   \
             vim \
             screen \
             minicom \
             x11-apps
 
-
-
-# RUN cd /tmp && wget $MIRROR$QUARTUS && \
-#         for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done && \
-#         chmod +x $QUARTUS && \
-#         ./$QUARTUS --mode unattended --installdir /opt/altera/ && \
-#         rm /tmp/* /opt/altera/uninstall -rf
-
-# these files conflict with the Ubuntu versions and cause random segfaults
+# NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
 # RUN rm /opt/altera/quartus/linux64/libccl_curl_drl.so \
 #         /opt/altera/quartus/linux64/libcrypto.so.1.0.0 \
 #         /opt/altera/quartus/linux64/libcurl.so.4 \
@@ -90,16 +84,17 @@ RUN apt-get install -y   \
 
 
 ################################################################################
-## copy my personal copy of Quartus onto the container
+## Either copy a manually downloaded copy of Quartus onto the container
+#RUN wget http://localhost/quartus/$QUARTUS.tar
+#RUN cd /opt && tar xf /root/$QUARTUS.tar && rm /root/$QUARTUS.tar
+#RUN cd /opt/components && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done
 ##
 ## NOTE:
-## copy may fail, if there is not enough temporary space available.
-## downloading it via localhost is the safer alternative.
-#RUN wget http://localhost/quartus/$QUARTUS.tar 
-#RUN cd /opt && tar xf /root/$QUARTUS.tar && rm /root/$QUARTUS.tar 
-#RUN cd /opt/components && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done 
+## docker COPY typically fails, due to not enough temporary space available. Downloading
+## it via localhost then is one alternative.
 
-## install from internet
+
+## Or, install quartus 16.1 from the internet
 RUN cd /opt && wget $MIRROR$QUARTUS
 RUN cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done
 RUN cd /opt && chmod +x $QUARTUS
@@ -111,7 +106,6 @@ RUN echo "export QT_X11_NO_MITSHM=1" >> /root/.profile
 
 ################################################################################
 ## build command automation
-
 COPY env.sh /root/env.sh
 COPY build.sh /root/build.sh
 
