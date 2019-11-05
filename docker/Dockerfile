@@ -77,17 +77,17 @@ RUN apt-get install -y   \
 #         /opt/altera/quartus/linux64/libssl.so.1.0.0
 
 
-## (opt) tools for debugging and working
-RUN apt-get install -y   \
-            vim \
-            screen \
-            minicom
 
 
 ################################################################################
 ## copy my personal copy of Quartus onto the container
-COPY $QUARTUS.tar /root/$QUARTUS.tar
-RUN cd /opt && tar xf /root/$QUARTUS.tar
+##
+## NOTE:
+## copy may fail, if there is not enough temporary space available.
+## downloading it via localhost is the safer alternative.
+
+RUN wget http://localhost/quartus/$QUARTUS.tar
+RUN cd /opt && tar xf /root/$QUARTUS.tar && rm /root/$QUARTUS.tar
 
 
 ################################################################################
