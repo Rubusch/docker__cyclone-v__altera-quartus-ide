@@ -57,6 +57,12 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+## (opt) tools for debugging and working
+RUN apt-get install -y   \
+            vim \
+            screen \
+            minicom
+
 
 # RUN cd /tmp && wget $MIRROR$QUARTUS && \
 #         for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done && \
