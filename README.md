@@ -75,7 +75,7 @@ TODO: prepare a projects folder which will be mounted, so that the projects can 
 
 * For hardware access run the docker container with ```--privileged``` mode
 
-* If Quartus only shows empty windows set ```export QT_X11_NO_MITSHM=1```, or put this into _```~/.profile```
+* If Quartus only shows empty windows set ```export QT_X11_NO_MITSHM=1```, or source _```~/env.sh```
 
 * Alternative installation (more recent versions) - Download a version of _Quartus_ **manually** from Intel which fits the size and needs. NB: Quartus Pro 16.x is around 15GB. In your configured webserver's _DirectoryRoot_ (test with localhost), create another directory _"quartus"_. Move the Quartus tarball into this directory. Pass the exact name of that tarball as build argument to the docker build instruction. And reimplement the Dockerfile, instead of downloading, to use the tarball (this is rather the idea, since more recent Quartus will imply a more recent base system, means different set of libs to be installed, etc, etc.). Remember to use ```--network host``` for accessing the localhost.
 
