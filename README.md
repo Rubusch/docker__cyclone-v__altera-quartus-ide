@@ -83,4 +83,17 @@ $ sudo mv <the downloaded quartus> /var/www/html/quartus/
 $ cd docker
 $ time docker build --build-arg QUARTUS="Quartus-pro-16.1.0.196-linux-complete" -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
 ```
-
+ * "No space left" at building the image, can be a docker issue, in case set the minimum image size up to e.g. 50GB:
+```
+$ sudo systemctl stop containerd
+$ sudo systemctl stop docker
+$ sudo vi /etc/docker/daemon.json
+    {
+      "storage-driver": "devicemapper",
+      "storage-opts": [
+            "dm.basesize=50G"
+      ]
+    }
+$ sudo systemctl start containerd
+$ sudo systemctl start docker
+```
