@@ -71,10 +71,13 @@ TODO: prepare a projects folder which will be mounted, so that the projects can 
 
 ## Issues
 
- * Working with the target for the DE1-SoC usually means to flash an SD card.
- * For hardware access run the docker container with ```--privileged``` mode
- * If Quartus only shows empty windows set ```export QT_X11_NO_MITSHM=1```, or put this into _```~/.profile```
- * Alternative installation (more recent versions) - Download a version of _Quartus_ **manually** from Intel which fits the size and needs. NB: Quartus Pro 16.x is around 15GB. In your configured webserver's _DirectoryRoot_ (test with localhost), create another directory _"quartus"_. Move the Quartus tarball into this directory. Pass the exact name of that tarball as build argument to the docker build instruction. And reimplement the Dockerfile, instead of downloading, to use the tarball (this is rather the idea, since more recent Quartus will imply a more recent base system, means different set of libs to be installed, etc, etc.). Remember to use ```--network host``` for accessing the localhost.
+* Working with the target for the DE1-SoC usually means to flash an SD card.
+
+* For hardware access run the docker container with ```--privileged``` mode
+
+* If Quartus only shows empty windows set ```export QT_X11_NO_MITSHM=1```, or put this into _```~/.profile```
+
+* Alternative installation (more recent versions) - Download a version of _Quartus_ **manually** from Intel which fits the size and needs. NB: Quartus Pro 16.x is around 15GB. In your configured webserver's _DirectoryRoot_ (test with localhost), create another directory _"quartus"_. Move the Quartus tarball into this directory. Pass the exact name of that tarball as build argument to the docker build instruction. And reimplement the Dockerfile, instead of downloading, to use the tarball (this is rather the idea, since more recent Quartus will imply a more recent base system, means different set of libs to be installed, etc, etc.). Remember to use ```--network host``` for accessing the localhost.
 
 ```
 $ sudo mkdir /var/www/html/quartus
@@ -83,7 +86,8 @@ $ sudo mv <the downloaded quartus> /var/www/html/quartus/
 $ cd docker
 $ time docker build --build-arg QUARTUS="Quartus-pro-16.1.0.196-linux-complete" -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
 ```
- * "No space left" at building the image, can be a docker issue, in case set the minimum image size up to e.g. 50GB:
+
+* "No space left" at building the image, can be a docker issue, in case set the minimum image size up to e.g. 50GB:
 ```
 $ sudo systemctl stop containerd
 $ sudo systemctl stop docker
