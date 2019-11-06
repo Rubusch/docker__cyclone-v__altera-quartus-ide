@@ -103,8 +103,7 @@ RUN cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
 
 ################################################################################
 ## build command automation
-COPY env.sh /root/env.sh
-COPY build.sh /root/build.sh
+COPY build.sh /usr/local/bin/build.sh
 
 ## automatic execution in command mode
-CMD ["/bin/bash", "/root/build.sh"]
+CMD ["/bin/bash", "/usr/local/bin/build.sh"]
