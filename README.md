@@ -1,4 +1,4 @@
-# docker__de1-soc-fpga-board
+# docker - SoC-FPGA-IDE - Altera Quartus
 
 Contains a Dockerfile for creating a docker image of the **Quartus 16.1** build environment for my **DE1-SoC Board (rev D)** from Terrasic (University Program).
 
