@@ -1,8 +1,10 @@
 # docker__de1-soc-fpga-board
 
-Contains a Dockerfile for building the build environment for my DE1-SoC Board (rev D) from Terrasic / University Edition.
+Contains a Dockerfile for creating a docker image of the **Quartus 16.1** build environment for my **DE1-SoC Board (rev D)** from Terrasic (University Program).
 
-The image will install Intel's Quartus Prime (former Altera's Quartus II - changed name when Intel bought Altera).
+Building the image will install Quartus. Using a container from the image will start Quartus.
+
+The **workspace** folder will be mounted as /root inside the docker. It will serve as workspace and may kept under git outside the docker container.
 
 
 
@@ -53,7 +55,6 @@ $ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /s
 
 ## Debug
 
-
 For debugging the container login to the docker container
 
 ```
@@ -66,7 +67,6 @@ In the container start quartus as follows
 docker$ /opt/altera/quartus/bin/quartus
 ```
 
-TODO: prepare a projects folder which will be mounted, so that the projects can be under git separately
 
 
 ## Issues
