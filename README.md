@@ -36,9 +36,9 @@ $ time docker build -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
 Find the correct tag as follows.
 ```
 $ docker images
-REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
-rubuschl/de1-soc-board   20191104161353      cbf4cb380168        24 minutes ago      15.5GB
-ubuntu                   xenial              5f2bf26e3524        4 days ago          123MB
+    REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+    rubuschl/de1-soc-board   20191104161353      cbf4cb380168        24 minutes ago      15.5GB
+    ubuntu                   xenial              5f2bf26e3524        4 days ago          123MB
 ```
 
 Here we take _20191104161353_ as an example tag.
