@@ -47,7 +47,7 @@ Here we take _20191104161353_ as an example tag.
 
 ```
 $ xhost +"local:docker@"
-$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/output:/projects rubuschl/de1-soc-board:20191104161353
+$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/root rubuschl/de1-soc-board:20191104161353
 ```
 
 
@@ -58,7 +58,7 @@ For debugging the container login to the docker container
 
 ```
 $ xhost +"local:docker@"
-$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/output:/projects rubuschl/de1-soc-board:20191104161353 /bin/bash
+$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/root rubuschl/de1-soc-board:20191104161353 /bin/bash
 ```
 
 In the container start quartus as follows
