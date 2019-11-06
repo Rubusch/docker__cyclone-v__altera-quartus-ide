@@ -69,7 +69,8 @@ RUN apt-get install -y   \
             vim \
             screen \
             minicom \
-            x11-apps
+            x11-apps \
+            sudo
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
 # RUN rm /opt/altera/quartus/linux64/libccl_curl_drl.so \
@@ -92,6 +93,11 @@ RUN apt-get install -y   \
 
 
 ## Or, install quartus 16.1 from the internet
+# TODO setup $USER in the image
+# TODO install quartus under the $USER
+# TODO mount workspace under /home/$USER
+#RUN chown user.user -R /opt... 
+
 RUN cd /opt && wget $MIRROR$QUARTUS
 RUN cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done
 RUN cd /opt && chmod +x $QUARTUS
