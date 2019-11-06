@@ -6,10 +6,7 @@ MAINTAINER Lothar Rubusch <lotophagon@protonmail.com>
 ## Jamie Iles <jamie@jamieiles.com>
 ## https://www.jamieiles.com/posts/quartus-docker/
 ##
-## Matt Ownby
-## http://my-cool-projects.blogspot.com/2018/10/how-to-dockerize-intel-quartus-1801.html
-##
-## Quartus II was renamed to Quartus Prime (after Intel bought Altera)
+## Quartus II was renamed to Quartus Prime (short before Intel bought Altera)
 
 
 WORKDIR /root
