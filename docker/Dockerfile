@@ -68,13 +68,16 @@ ENV LC_ALL en_US.UTF-8
 ## avoid blank qt windows
 ENV QT_X11_NO_MITSHM 1
 
-## (opt) tools for debugging and working, e.g. X11-apps for testing the xserver via xclock
+## (opt) tools for debugging and working,
+## X11-apps - for testing the xserver via xclock
+## firefox-esr - quartus needs this for some dialogs (...)
 RUN apt-get install -y   \
             vim \
             screen \
             minicom \
+            sudo \
             x11-apps \
-            sudo
+            firefox-esr
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
 # RUN rm -rf /opt/altera/quartus/linux64/libccl_curl_drl.so
