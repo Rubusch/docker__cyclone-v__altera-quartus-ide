@@ -2,7 +2,7 @@
 
 Contains a Dockerfile for creating a docker image of the **Quartus 16.1** build environment for my **DE1-SoC Board (rev D)** from Terrasic (University Program).
 
-Building the image will install Quartus. Using a container from the image will start Quartus.
+Building the image will install Quartus. Using a container from the image will start Quartus. Then ModelSim will be downloaded. ModelSim will be installed to _/opt/altera_ as well.
 
 The **workspace** folder will be mounted as /home/user inside the docker. It will serve as workspace and may kept under git outside the docker container.
 
@@ -11,19 +11,23 @@ The **workspace** folder will be mounted as /home/user inside the docker. It wil
 ## Resources
 
 Terrasic Material
+
 https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=836
 https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=836&PartNo=4
 
 
 Getting started with the DE1-SoC video serie
+
 https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7UcOVMm39A6VdMbWWq-e_c
 
 
 Cornell University Material on the DE1-SoC Board (links)
+
 https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/index.html
 
 
 Download links for Quartus Editions (direct links, no Intel registration)
+
 https://github.com/CTSRD-CHERI/quartus-install/blob/master/quartus-install.py
 
 
@@ -52,6 +56,90 @@ $ xhost +"local:docker@"
 
 $ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
 ```
+
+
+## ModelSim
+
+ModelSim first has to be configured in Quartus.
+
+### Configure ModelSim in Quartus
+
+In quartus, go **Tools** -> **Options** -> **EDA Tool Options** and provide a valid path to the ```_ase``` version's bin under **ModelSim Altera**: ```_/opt/altera/modelsim_ase/bin/_```
+
+Then in an open project in Quartus, go **Assignments** -> **Settings** -> under **EDA Tool Settings** select **Simulation** (left side).
+
+
+
+### Setting up ModelSim
+
+The simulation page appears, fill out the following
+ * **Tool name** : _ModelSim-Altera_
+ * **Run gate-level simulation automatically after compilation** : _off_
+ * under **EDA Netlist Writer Settings** -> **Format for output netlist** : _Verilog HDL_
+ * **Map illegal HDL characters** : _off_
+ * **Enable glitch filtering** : off
+ * **Generate Value Change Dump (VCD) file script** : _off_
+ * **NativeLink settings** : _None_
+
+Click on **ok**
+
+
+### Using ModelSim
+
+In Quartus, go **Processing** -> **Start** -> **Start Analysis & Elaboration**. This will take some seconds.
+
+After this was successfull, go **Tools** -> **Run Simulation Tool** -> **RTL Simulation**.
+
+
+### Add Signals in ModelSim
+
+In ModelSim, go to the **Library** window, open the **work** tree and rightclick the top level file of the project, and select **Create Wave**.
+
+Delete signals: In the wave window by marking, and then hitting the del key.
+
+Create signals: In the wave window rightclick the signal, e.g. clk, and select **Edit** -> **Create/Modify Waveform**: the create pattern wizzard appears!
+
+Under patterns, select **Clock**
+
+ * **Start Time**   : 0
+ * **End Time**     : 5000
+ * **Time Unit**    : ns
+
+Click "Next"
+
+ * "Clock Period** : 100
+ * "Time Unit**    : ns
+ * "Duty Cycle**   : 50
+
+Click **Finish**
+
+
+
+
+### Known Errors with ModelSim
+
+ * "Can't launch ModelSim-Altera Simulation software -  make sure the software is properly installed and the environment variable LM_LICENSE_FILE or GGLS_LICENSE_FILE points to the correct license file."
+   **FIX**: run in the shell
+   ```
+   $ /opt/altera/13.1/modelsim_ase/linuxaloem/vsimk
+   ```
+   Illegal instruction (TODO: what was this again??)
+   ```
+   $ /opt/altera/13.1/modelsim_ase/linuxaloem/vish
+   ```
+
+ * ```/opt/altera/13.1/modelsim_ase/linuxaloem/vish: error while loading shared
+   libraries: libXft.so.2: cannot open shared object file: No such file or
+   directory```
+   **FIX**: install missing libraries as i386 version (btw. make sure that apt is able to handle :i386 packages, when installing into an 64bit system!)
+   ```
+   $ sudo aptitude install libxft2:i386
+   $ sudo aptitude install libncurses5:i386
+   ```
+   TODO there was something with the iar.. libs package (x86 compatibility libraries)
+
+TODO installation of Arbiter Testbench
+
 
 
 ## Debug
