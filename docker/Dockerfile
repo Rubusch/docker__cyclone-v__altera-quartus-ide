@@ -91,18 +91,19 @@ RUN apt-get install -y   \
 ## docker COPY typically fails, due to not enough temporary space available. Downloading
 ## it via localhost then is one alternative.
 
+## setup user and run stuff under user
+RUN useradd "$USER" -m --password "$USER"
+RUN usermod -a -G sudo "$USER"
+RUN usermod -a -G dialout "$USER"
+RUN sed -i '/%sudo/s/.*/%sudo   ALL=NOPASSWD: ALL/' /etc/sudoers
+RUN chown "$USER.$USER" -R /opt
 
-## Or, install quartus 16.1 from the internet
-# TODO setup $USER in the image
-# TODO install quartus under the $USER
-# TODO mount workspace under /home/$USER
-#RUN chown user.user -R /opt... 
-
-RUN cd /opt && wget $MIRROR$QUARTUS
-RUN cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done
-RUN cd /opt && chmod +x $QUARTUS
-RUN cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --installdir /opt/altera
-RUN cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
+## install quartus 16.1 from the internet
+RUN su "$USER" && cd /opt && wget $MIRROR$QUARTUS
+RUN su "$USER" && cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done
+RUN su "$USER" && cd /opt && chmod +x $QUARTUS
+RUN su "$USER" && cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --installdir /opt/altera
+RUN su "$USER" && cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
 
 ################################################################################
 ## build command automation
