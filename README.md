@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Rubusch/docker__cyclone-v__altera-quartus-ide.svg?style=svg?style=shield)](https://circleci.com/gh/Rubusch/docker__cyclone-v__altera-quartus-ide)
+[![CircleCI](https://circleci.com/gh/Rubusch/docker__cyclone-v__altera-quartus-ide.svg?style=shield)](https://circleci.com/gh/Rubusch/docker__cyclone-v__altera-quartus-ide)
 
 # Container for my Cyclone V IDE: Altera Quartus
 
