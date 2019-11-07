@@ -14,6 +14,8 @@ WORKDIR /root
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge
+RUN apt-get install -y \
+        apt-utils
 
 ## Quartus 16.1 - freely available on the net (in 2019)
 ## (comment the following out or adjust it for manually loading a quartus tarball)
@@ -28,6 +30,7 @@ ARG DEVICE_FILES="cyclonev-16.1.0.196.qdz cyclone-16.1.0.196.qdz"
 ARG USER=""
 
 RUN dpkg --add-architecture i386
+
 RUN apt-get update && apt-get install --no-install-recommends -y \
         ca-certificates \
         lib32ncurses5-dev \
