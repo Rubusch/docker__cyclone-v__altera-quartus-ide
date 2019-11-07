@@ -1,3 +1,5 @@
+![CircleCI](https://circleci.com/gh/Rubusch/cpp.svg?style=shield)](https://circleci.com/gh/Rubusch/docker__cyclone-v__altera-quartus-ide)
+
 # Container for my Cyclone V IDE: Altera Quartus
 
 Contains a Dockerfile for creating a docker image of the **Quartus 16.1** build environment for my **DE1-SoC Board (rev D)** from Terrasic (University Program).
