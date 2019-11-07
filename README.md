@@ -4,7 +4,7 @@ Contains a Dockerfile for creating a docker image of the **Quartus 16.1** build 
 
 Building the image will install Quartus. Using a container from the image will start Quartus.
 
-The **workspace** folder will be mounted as /root inside the docker. It will serve as workspace and may kept under git outside the docker container.
+The **workspace** folder will be mounted as /home/user inside the docker. It will serve as workspace and may kept under git outside the docker container.
 
 
 
@@ -46,7 +46,7 @@ $ docker images
 
 $ xhost +"local:docker@"
 
-$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user rubuschl/cyclone-v-ide:20191104161353
+$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
 ```
 
 
@@ -55,8 +55,14 @@ $ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X
 For debugging the container login to the docker container
 
 ```
+$ docker images
+    REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+    rubuschl/cyclone-v-ide   20191104161353      cbf4cb380168        24 minutes ago      15.5GB
+    ubuntu                   xenial              5f2bf26e3524        4 days ago          123MB
+
 $ xhost +"local:docker@"
-$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/root --user=$USER:$USER --workdir=/home/$USER  rubuschl/cyclone-v-ide:20191104161353 /bin/bash
+
+$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/$USER --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353 /bin/bash
 ```
 
 In the container start quartus as follows
