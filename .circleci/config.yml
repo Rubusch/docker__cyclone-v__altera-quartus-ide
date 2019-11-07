@@ -3,9 +3,10 @@ jobs:
   build:
     docker:
       - image: ubuntu:18.04
+    working_directory: docker
+
     steps:
       - checkout
-    working_directory: docker
 
 #      - run:
 #          name: Greeting
