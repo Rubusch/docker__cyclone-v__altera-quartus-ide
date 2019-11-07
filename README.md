@@ -49,7 +49,7 @@ Here we take _20191104161353_ as an example tag.
 
 ```
 $ xhost +"local:docker@"
-$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user rubuschl/de1-soc-board:20191104161353
+$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user rubuschl/de1-soc-board:20191104161353
 ```
 
 
