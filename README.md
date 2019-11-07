@@ -1,4 +1,4 @@
-# docker - SoC-FPGA-IDE - Altera Quartus
+# Docker - Altera Cyclone V IDE: Altera Quartus
 
 Contains a Dockerfile for creating a docker image of the **Quartus 16.1** build environment for my **DE1-SoC Board (rev D)** from Terrasic (University Program).
 
@@ -30,14 +30,14 @@ Installation uses last release freely available on the net (in 2019)
 
 ```
 $ cd docker
-$ time docker build -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
+$ time docker build -t rubuschl/cyclone-v-ide:$(date +%Y%m%d%H%M%S) .
 ```
 
 Find the correct tag as follows.
 ```
 $ docker images
     REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
-    rubuschl/de1-soc-board   20191104161353      cbf4cb380168        24 minutes ago      15.5GB
+    rubuschl/cyclone-v-ide   20191104161353      cbf4cb380168        24 minutes ago      15.5GB
     ubuntu                   xenial              5f2bf26e3524        4 days ago          123MB
 ```
 
@@ -49,7 +49,7 @@ Here we take _20191104161353_ as an example tag.
 
 ```
 $ xhost +"local:docker@"
-$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user rubuschl/de1-soc-board:20191104161353
+$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user rubuschl/cyclone-v-ide:20191104161353
 ```
 
 
@@ -59,7 +59,7 @@ For debugging the container login to the docker container
 
 ```
 $ xhost +"local:docker@"
-$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/root rubuschl/de1-soc-board:20191104161353 /bin/bash
+$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/root rubuschl/cyclone-v-ide:20191104161353 /bin/bash
 ```
 
 In the container start quartus as follows
@@ -71,7 +71,7 @@ docker$ /opt/altera/quartus/bin/quartus
 
 ## Issues
 
-* Working with the target for the DE1-SoC usually means to flash an SD card.
+* Working with the target for the DE1-SoC usually means to flash an SD card. The .sof files also can be converted into .rbf files and as such loaded dynamically via Linux on the board to the FPGA fabric. Further for the DE1-SoC you may use a tftp boot and nfs setup as automation solution.
 
 * For hardware access run the docker container with ```--privileged``` mode
 
@@ -84,7 +84,7 @@ $ sudo mkdir /var/www/html/quartus
 $ sudo mv <the downloaded quartus> /var/www/html/quartus/
 
 $ cd docker
-$ time docker build --build-arg QUARTUS="Quartus-pro-16.1.0.196-linux-complete" -t rubuschl/de1-soc-board:$(date +%Y%m%d%H%M%S) .
+$ time docker build --build-arg QUARTUS="Quartus-pro-16.1.0.196-linux-complete" -t rubuschl/cyclone-v-ide:$(date +%Y%m%d%H%M%S) .
 ```
 
 * "No space left" at building the image, can be a docker issue, in case set the minimum image size up to e.g. 50GB:
