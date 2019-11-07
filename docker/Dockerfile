@@ -106,8 +106,8 @@ RUN su "$USER" && cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui min
 RUN su "$USER" && cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
 
 ################################################################################
-## build command automation
+## prepare command automation
 COPY build.sh /usr/local/bin/build.sh
 
-## automatic execution in command mode
+## command mode
 CMD ["/bin/bash", "/usr/local/bin/build.sh"]
