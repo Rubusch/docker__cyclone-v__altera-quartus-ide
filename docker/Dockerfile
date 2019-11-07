@@ -17,10 +17,13 @@ RUN apt-get install -y \
 ## Quartus 16.1 - freely available on the net (in 2019)
 ## (comment the following out or adjust it for manually loading a quartus tarball)
 ARG QUARTUS=QuartusLiteSetup-16.1.0.196-linux.run
-ARG MIRROR=http://download.altera.com/akdlm/software/acdsinst/16.1/196/ib_installers/
-ARG QUARTUS=QuartusLiteSetup-16.1.0.196-linux.run
+ARG MIRROR161=http://download.altera.com/akdlm/software/acdsinst/16.1/196/ib_installers/
 ARG DEVICE_FILES="cyclonev-16.1.0.196.qdz cyclone-16.1.0.196.qdz"
 ###
+
+## model sim
+ARG MODELSIM=ModelSimSetup-16.0.0.211-linux.run
+ARG MIRROR160=http://download.altera.com/akdlm/software/acdsinst/16.0/211/ib_installers/
 
 ## the USER is needed to make it available as --build-arg
 ## in case docker complains for a not set USER, perhaps you forgot to use --build-arg USER=$USER
@@ -106,10 +109,17 @@ RUN sed -i '/%sudo/s/.*/%sudo   ALL=NOPASSWD: ALL/' /etc/sudoers
 RUN chown "$USER.$USER" -R /opt
 
 ## install quartus 16.1 from the internet
-RUN su "$USER" && cd /opt && wget $MIRROR$QUARTUS
-RUN su "$USER" && cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done
+RUN su "$USER" && cd /opt && wget $MIRROR161$QUARTUS
+RUN su "$USER" && cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR161$DEV_FILE; done
 RUN su "$USER" && cd /opt && chmod +x $QUARTUS
 RUN su "$USER" && cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --installdir /opt/altera
+
+## install modelsim 16.0 from the internet
+RUN su "$USER" && cd /opt && wget $MIRROR160$MODELSIM
+RUN su "$USER" && cd /opt && chmod +x $MODELSIM
+RUN su "$USER" && cd /opt && ./$MODELSIM --mode unattended --unattendedmodeui minimal --installdir /opt/altera
+
+
 RUN su "$USER" && cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
 
 ################################################################################
