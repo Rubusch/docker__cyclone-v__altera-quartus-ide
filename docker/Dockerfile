@@ -106,21 +106,20 @@ RUN useradd "$USER" -m --password "$USER"
 RUN usermod -a -G sudo "$USER"
 RUN usermod -a -G dialout "$USER"
 RUN sed -i '/%sudo/s/.*/%sudo   ALL=NOPASSWD: ALL/' /etc/sudoers
-RUN chown "$USER.$USER" -R /opt
 
 ## install quartus 16.1 from the internet
-RUN su "$USER" && cd /opt && wget $MIRROR161$QUARTUS
-RUN su "$USER" && cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR161$DEV_FILE; done
-RUN su "$USER" && cd /opt && chmod +x $QUARTUS
-RUN su "$USER" && cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --installdir /opt/altera
+RUN cd /opt && wget $MIRROR161$QUARTUS
+RUN cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR161$DEV_FILE; done
+RUN cd /opt && chmod +x $QUARTUS
+RUN cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --installdir /opt/altera
 
 ## install modelsim 16.0 from the internet
-RUN su "$USER" && cd /opt && wget $MIRROR160$MODELSIM
-RUN su "$USER" && cd /opt && chmod +x $MODELSIM
-RUN su "$USER" && cd /opt && ./$MODELSIM --mode unattended --unattendedmodeui minimal --installdir /opt/altera
+RUN cd /opt && wget $MIRROR160$MODELSIM
+RUN cd /opt && chmod +x $MODELSIM
+RUN cd /opt && ./$MODELSIM --mode unattended --unattendedmodeui minimal --installdir /opt/altera
 
-
-RUN su "$USER" && cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
+RUN cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
+RUN chown "$USER.$USER" -R /opt
 
 ################################################################################
 ## command mode
