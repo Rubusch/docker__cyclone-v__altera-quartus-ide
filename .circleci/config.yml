@@ -25,11 +25,11 @@ jobs:
 #        name: Install NINJA
 #        command: 'apt-get update && sudo apt-get install -y ninja'
 
-#      - run:
-#        name: Install DOCKER
-#        command: 'apt-get update && sudo apt-get install -y docker-ce containerd'
+      - run:
+          name: Install DOCKER
+          command: 'apt-get update && sudo apt-get install -y docker-ce containerd'
 
-#      - run: date
+      - run: date
 
 ################################################################################
 #      -run: cd docker && docker build --build-arg USER='user' -t rubuschl/cyclone-v-ide:$(date +%Y%m%d%H%M%S) .
