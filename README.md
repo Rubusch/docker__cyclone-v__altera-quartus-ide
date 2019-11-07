@@ -23,6 +23,10 @@ Cornell University Material on the DE1-SoC Board (links)
 https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/index.html
 
 
+Download links for Quartus Editions (direct links, no Intel registration)
+https://github.com/CTSRD-CHERI/quartus-install/blob/master/quartus-install.py
+
+
 
 ## Build
 
