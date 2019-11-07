@@ -22,6 +22,7 @@ ARG MIRROR=http://download.altera.com/akdlm/software/acdsinst/16.1/196/ib_instal
 ARG QUARTUS=QuartusLiteSetup-16.1.0.196-linux.run
 ARG DEVICE_FILES="cyclonev-16.1.0.196.qdz cyclone-16.1.0.196.qdz"
 ###
+ARG USER=""
 
 RUN dpkg --add-architecture i386
 RUN apt-get update && apt-get install --no-install-recommends -y \

@@ -30,7 +30,7 @@ Installation uses last release freely available on the net (in 2019)
 
 ```
 $ cd docker
-$ time docker build -t rubuschl/cyclone-v-ide:$(date +%Y%m%d%H%M%S) .
+$ time docker build --build-arg USER=$USER -t rubuschl/cyclone-v-ide:$(date +%Y%m%d%H%M%S) .
 ```
 
 Find the correct tag as follows.
