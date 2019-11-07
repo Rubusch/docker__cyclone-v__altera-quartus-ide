@@ -73,10 +73,10 @@ RUN apt-get install -y   \
             sudo
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
-# RUN rm /opt/altera/quartus/linux64/libccl_curl_drl.so \
-#         /opt/altera/quartus/linux64/libcrypto.so.1.0.0 \
-#         /opt/altera/quartus/linux64/libcurl.so.4 \
-#         /opt/altera/quartus/linux64/libssl.so.1.0.0
+# RUN rm -rf /opt/altera/quartus/linux64/libccl_curl_drl.so
+# RUN rm -rf /opt/altera/quartus/linux64/libcrypto.so.1.0.0
+# RUN rm -rf /opt/altera/quartus/linux64/libcurl.so.4
+# RUN rm -rf /opt/altera/quartus/linux64/libssl.so.1.0.0
 
 
 
