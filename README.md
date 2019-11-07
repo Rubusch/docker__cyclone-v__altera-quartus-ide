@@ -33,22 +33,19 @@ $ cd docker
 $ time docker build --build-arg USER=$USER -t rubuschl/cyclone-v-ide:$(date +%Y%m%d%H%M%S) .
 ```
 
-Find the correct tag as follows.
+
+## Usage
+
+Find the correct tag as follows. Here we take _20191104161353_ as an example tag.
+
 ```
 $ docker images
     REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
     rubuschl/cyclone-v-ide   20191104161353      cbf4cb380168        24 minutes ago      15.5GB
     ubuntu                   xenial              5f2bf26e3524        4 days ago          123MB
-```
 
-Here we take _20191104161353_ as an example tag.
-
-
-
-## Usage
-
-```
 $ xhost +"local:docker@"
+
 $ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user rubuschl/cyclone-v-ide:20191104161353
 ```
 
@@ -59,7 +56,7 @@ For debugging the container login to the docker container
 
 ```
 $ xhost +"local:docker@"
-$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/root rubuschl/cyclone-v-ide:20191104161353 /bin/bash
+$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/root --user=$USER:$USER --workdir=/home/$USER  rubuschl/cyclone-v-ide:20191104161353 /bin/bash
 ```
 
 In the container start quartus as follows
