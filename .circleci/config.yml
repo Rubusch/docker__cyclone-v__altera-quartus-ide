@@ -5,13 +5,15 @@ jobs:
       - image: ubuntu:18.04
     steps:
       - checkout
-      - run:
-          name: Greeting
-          command: echo Hello, world.
+    working_directory: docker
 
-      - run:
-          name: Installing SUDO
-          command: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
+#      - run:
+#          name: Greeting
+#          command: echo Hello, world.
+
+#      - run:
+#          name: Installing SUDO
+#          command: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
 
 #      - run:
 #        name: Installing GCC
@@ -35,9 +37,8 @@ jobs:
 #          command: 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"'
 #          command: 'apt-get update && apt-get -y install docker-ce docker-ce-cli containerd.io'
 
-
-
-      - run: date
+#      - run: date
 
 ################################################################################
-      - run: cd docker && docker build --build-arg USER='user' -t rubuschl/cyclone-v-ide:$(date +%Y%m%d%H%M%S) .
+      - run: |
+          docker build --build-arg USER='user' -t rubuschl/cyclone-v-ide:$(date +%Y%m%d%H%M%S) .
