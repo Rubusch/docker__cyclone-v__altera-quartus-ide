@@ -1,21 +1,18 @@
 FROM ubuntu:xenial
 MAINTAINER Lothar Rubusch <lotophagon@protonmail.com>
+WORKDIR /root
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge
+RUN apt-get install -y \
+        apt-utils
 
+################################################################################
 ## RESOURCES
 ##
 ## Jamie Iles <jamie@jamieiles.com>
 ## https://www.jamieiles.com/posts/quartus-docker/
 ##
 ## Quartus II was renamed to Quartus Prime (short before Intel bought Altera)
-
-
-WORKDIR /root
-
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge
-RUN apt-get install -y \
-        apt-utils
 
 ## Quartus 16.1 - freely available on the net (in 2019)
 ## (comment the following out or adjust it for manually loading a quartus tarball)
@@ -116,8 +113,6 @@ RUN su "$USER" && cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui min
 RUN su "$USER" && cd /opt && rm /opt/*.run /opt/altera/uninstall -rf
 
 ################################################################################
-## prepare command automation
-COPY build.sh /usr/local/bin/build.sh
-
 ## command mode
+COPY build.sh /usr/local/bin/build.sh
 CMD ["/bin/bash", "/usr/local/bin/build.sh"]
