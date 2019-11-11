@@ -114,7 +114,7 @@ RUN cd /opt && chmod +x $QUARTUS
 RUN cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --installdir /opt/altera
 
 ## fix: firefox - libstdc++.so.6: version `CXXABI_1.3.8' not found
-RUN test -f /opt/altera/quartus/linux64/libstdc++.so.6 && mv /opt/altera/quartus/linux64/libstdc++.so.6{,.orig}
+RUN test -f /opt/altera/quartus/linux64/libstdc++.so.6 && rm -f /opt/altera/quartus/linux64/libstdc++.so.6
 RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/altera/quartus/linux64/
 
 ## fix: setup udev rule for 'USB2 BLASTER' (separate JTagger), read/write permissions for user
