@@ -117,6 +117,10 @@ RUN cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --install
 RUN mv /opt/altera/quartus/linux64/libstdc++.so.6{,.orig}
 RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/altera/quartus/linux64/
 
+## fix: setup udev rule for 'USB2 BLASTER' (separate JTagger), read/write permissions for user
+#RUN echo 'BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6010", MODE="0666"' > /etc/udev/rules.d/52-usbblaster.rules
+#RUN echo 'BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6810", MODE="0666"' >> /etc/udev/rules.d/52-usbblaster.rules
+
 ## install modelsim 16.0 from the internet
 RUN cd /opt && wget $MIRROR160$MODELSIM
 RUN cd /opt && chmod +x $MODELSIM
