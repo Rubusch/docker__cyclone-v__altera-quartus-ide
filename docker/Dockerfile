@@ -80,7 +80,8 @@ RUN apt-get install -y   \
             minicom \
             sudo \
             x11-apps \
-            firefox
+            firefox \
+            dbus-x11
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
 # RUN rm -rf /opt/altera/quartus/linux64/libccl_curl_drl.so
