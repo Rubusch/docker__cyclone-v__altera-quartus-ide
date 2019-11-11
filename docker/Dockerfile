@@ -113,6 +113,10 @@ RUN cd /opt && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR161$DEV_FILE; done
 RUN cd /opt && chmod +x $QUARTUS
 RUN cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --installdir /opt/altera
 
+## fix: firefox - libstdc++.so.6: version `CXXABI_1.3.8' not found
+RUN mv /opt/altera/quartus/linux64/libstdc++.so.6{,.orig}
+RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/altera/quartus/linux64/
+
 ## install modelsim 16.0 from the internet
 RUN cd /opt && wget $MIRROR160$MODELSIM
 RUN cd /opt && chmod +x $MODELSIM
