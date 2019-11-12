@@ -61,7 +61,7 @@ $ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X
 ```
 
 
-## ModelSim
+## ModelSim Installation
 
 ModelSim first has to be configured in Quartus.
 
@@ -115,34 +115,6 @@ Click "Next"
  * "Duty Cycle**   : 50
 
 Click **Finish**
-
-
-
-
-### Known Errors with ModelSim
-
- * "Can't launch ModelSim-Altera Simulation software -  make sure the software is properly installed and the environment variable LM_LICENSE_FILE or GGLS_LICENSE_FILE points to the correct license file."
-   **FIX**: run in the shell
-   ```
-   $ /opt/altera/13.1/modelsim_ase/linuxaloem/vsimk
-   ```
-   Illegal instruction (TODO: what was this again??)
-   ```
-   $ /opt/altera/13.1/modelsim_ase/linuxaloem/vish
-   ```
-
- * ```/opt/altera/13.1/modelsim_ase/linuxaloem/vish: error while loading shared
-   libraries: libXft.so.2: cannot open shared object file: No such file or
-   directory```
-   **FIX**: install missing libraries as i386 version (btw. make sure that apt is able to handle :i386 packages, when installing into an 64bit system!)
-   ```
-   $ sudo aptitude install libxft2:i386
-   $ sudo aptitude install libncurses5:i386
-   ```
-   TODO there was something with the iar.. libs package (x86 compatibility libraries)
-
-TODO installation of Arbiter Testbench
-
 
 
 ## Debug
@@ -214,3 +186,30 @@ $ cd altera/19.1/quartus/linux64/perl/bin
 $ mv perl perl_old
 $ ln -s /usr/bin/perl
 ```
+
+
+## Known Errors with ModelSim
+
+ * "Can't launch ModelSim-Altera Simulation software -  make sure the software is properly installed and the environment variable LM_LICENSE_FILE or GGLS_LICENSE_FILE points to the correct license file."
+   **FIX**: run in the shell
+   ```
+   $ /opt/altera/13.1/modelsim_ase/linuxaloem/vsimk
+   ```
+   Illegal instruction (TODO: what was this again??)
+   ```
+   $ /opt/altera/13.1/modelsim_ase/linuxaloem/vish
+   ```
+
+ * ```/opt/altera/13.1/modelsim_ase/linuxaloem/vish: error while loading shared
+   libraries: libXft.so.2: cannot open shared object file: No such file or
+   directory```
+   **FIX**: install missing libraries as i386 version (btw. make sure that apt is able to handle :i386 packages, when installing into an 64bit system!)
+   ```
+   $ sudo aptitude install libxft2:i386
+   $ sudo aptitude install libncurses5:i386
+   ```
+   TODO there was something with the iar.. libs package (x86 compatibility libraries)
+
+TODO installation of Arbiter Testbench
+
+
