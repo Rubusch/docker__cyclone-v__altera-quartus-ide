@@ -61,7 +61,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         libxft2 \
         lib32z1 \
         lib32ncurses5 \
-        libbz2-1.0
+        libbz2-1.0 \
+        udev
 
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
 ENV LANG en_US.UTF-8
@@ -81,7 +82,8 @@ RUN apt-get install -y   \
             sudo \
             x11-apps \
             firefox \
-            dbus-x11
+            dbus-x11 \
+            psutils
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
 # RUN rm -rf /opt/altera/quartus/linux64/libccl_curl_drl.so
@@ -121,6 +123,9 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/altera/quartus/linux64/
 ## fix: setup udev rule for 'USB2 BLASTER' (separate JTagger), read/write permissions for user
 #RUN echo 'BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6010", MODE="0666"' > /etc/udev/rules.d/52-usbblaster.rules
 #RUN echo 'BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6810", MODE="0666"' >> /etc/udev/rules.d/52-usbblaster.rules
+
+## fix: USB Blaster (JTAG) not working w/o udev rule
+RUN echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="0666"' > /etc/udev/rules.d/52-usbblaster.rules
 
 ## install modelsim 16.0 from the internet
 RUN cd /opt && wget $MIRROR160$MODELSIM
