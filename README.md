@@ -10,28 +10,21 @@ The **workspace** folder will be mounted as /home/user inside the docker. It wil
 
 ## Resources
 
-Terrasic Material
-
+Terrasic Material  
 https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=836
 https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=836&PartNo=4
 
-
-Getting started with the DE1-SoC video serie
-
+Getting started with the DE1-SoC video serie  
 https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7UcOVMm39A6VdMbWWq-e_c
 
-
-Cornell University Material on the DE1-SoC Board (links)
-
+Cornell University Material on the DE1-SoC Board (links)  
 https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/index.html
 
-
-Download links for Quartus Editions (direct links, no Intel registration)
-
+Download links for Quartus Editions (direct links, no Intel registration)  
 https://github.com/CTSRD-CHERI/quartus-install/blob/master/quartus-install.py
 
-JTAG
-(remember product id can be 6810 or 6010, see comments)
+JTAG  
+(remember product id can be 6810 or 6010, see comments)  
 https://gladdy.github.io/2017/03/18/Altera-udev.html
 
 
@@ -57,8 +50,9 @@ $ docker images
 
 $ xhost +"local:docker@"
 
-$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
+$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /dev:/dev -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
 ```
+NB: the docker container does not serve for a safer environment, it is meant as a solution for archiving the quartus setup, as safe or dangerous as a native installation would be, e.g when bind mounting /dev.
 
 
 ## ModelSim Installation
@@ -129,12 +123,13 @@ $ docker images
 
 $ xhost +"local:docker@"
 
-$ docker run --rm -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/$USER --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353 /bin/bash
+$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /dev:/dev -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/$USER --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353 /bin/bash
 ```
 
 In the container start quartus as follows
 ```
-docker$ /opt/altera/quartus/bin/quartus
+docker$ source ~/env.sh
+docker$ quartus
 ```
 
 
