@@ -30,6 +30,9 @@ Download links for Quartus Editions (direct links, no Intel registration)
 
 https://github.com/CTSRD-CHERI/quartus-install/blob/master/quartus-install.py
 
+JTAG
+(remember product id can be 6810 or 6010, see comments)
+https://gladdy.github.io/2017/03/18/Altera-udev.html
 
 
 ## Build
@@ -200,3 +203,8 @@ $ sudo systemctl start docker
 ```
 
 * The "permission denied" may happen if you forget either to set the _-w_ directive, or the _-u_ directive, or both at the _docker run_ command, it then falls back to root and/or /root - best is to simply copy&paste the commands here.
+
+FIXME: CURRENTLY THE DOCKER IMAGE IS NOT FUNCTIONAL SINCE THE PROGRAMMER (JTAG) IS NOT WORKING
+* JTAG connection: the programmer needs a udev rule.  
+Test the JTAG connection: ```/opt/altera/quartus/bin/jtagd --user-start --config ~/.jtagd.conf```
+
