@@ -83,27 +83,18 @@ RUN apt-get install -y   \
             x11-apps \
             firefox \
             dbus-x11 \
-            psutils
+            psutils \
+            usbutils
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
+# TODO check
 # RUN rm -rf /opt/altera/quartus/linux64/libccl_curl_drl.so
 # RUN rm -rf /opt/altera/quartus/linux64/libcrypto.so.1.0.0
 # RUN rm -rf /opt/altera/quartus/linux64/libcurl.so.4
 # RUN rm -rf /opt/altera/quartus/linux64/libssl.so.1.0.0
 
 
-
-
 ################################################################################
-## Either copy a manually downloaded copy of Quartus onto the container
-#RUN wget http://localhost/quartus/$QUARTUS.tar
-#RUN cd /opt && tar xf /root/$QUARTUS.tar && rm /root/$QUARTUS.tar
-#RUN cd /opt/components && for DEV_FILE in $DEVICE_FILES; do wget $MIRROR$DEV_FILE; done
-##
-## NOTE:
-## docker COPY typically fails, due to not enough temporary space available. Downloading
-## it via localhost then is one alternative.
-
 ## setup user and run stuff under user
 RUN useradd "$USER" -m --password "$USER"
 RUN usermod -a -G sudo "$USER"
