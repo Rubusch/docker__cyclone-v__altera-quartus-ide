@@ -204,7 +204,13 @@ $ sudo systemctl start docker
 
 * The "permission denied" may happen if you forget either to set the _-w_ directive, or the _-u_ directive, or both at the _docker run_ command, it then falls back to root and/or /root - best is to simply copy&paste the commands here.
 
-FIXME: CURRENTLY THE DOCKER IMAGE IS NOT FUNCTIONAL SINCE THE PROGRAMMER (JTAG) IS NOT WORKING
-* JTAG connection: the programmer needs a udev rule.  
-Test the JTAG connection: ```/opt/altera/quartus/bin/jtagd --user-start --config ~/.jtagd.conf```
+* JTAG connection: the programmer needs a udev rule. Use intel documented udev rules ``/etc/udev/rules.d/92-usbblaster.rules``, and make sure ``/dev/bus/usb/<major>/<minor>`` has permissions **666**, or set it manually inside the container (needs to be started manually then FIXME). Get major and minor number with **lsusb**. Manually restart and reload udev: ``$ sudo udevadm control --reload-rules && sudo udevadm trigger``. **Don't unplug the board and replug it!**  
+Optionally test the JTAG connection: ``$ /opt/altera/quartus/bin/jtagd --user-start --config ~/.jtagd.conf``, but probably this has no effect.
 
+* If QSYS shows the error ``... Can't locate Getopt/Long.pm in @INC ...``, the following fix is documented:
+```
+$ sudo apt install libgetopt-simple-perl
+$ cd altera/19.1/quartus/linux64/perl/bin
+$ mv perl perl_old
+$ ln -s /usr/bin/perl
+```
