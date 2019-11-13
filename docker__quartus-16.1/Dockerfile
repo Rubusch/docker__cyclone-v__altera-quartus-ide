@@ -82,7 +82,8 @@ RUN apt-get install -y   \
             x11-apps \
             firefox \
             dbus-x11 \
-            psutils
+            psutils \
+            dlocate
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
 # TODO check
