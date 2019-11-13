@@ -61,8 +61,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         libxft2 \
         lib32z1 \
         lib32ncurses5 \
-        libbz2-1.0 \
-        udev
+        libbz2-1.0
 
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
 ENV LANG en_US.UTF-8
@@ -83,8 +82,7 @@ RUN apt-get install -y   \
             x11-apps \
             firefox \
             dbus-x11 \
-            psutils \
-            usbutils
+            psutils
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
 # TODO check
@@ -110,9 +108,6 @@ RUN cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --install
 ## fix: firefox - libstdc++.so.6: version `CXXABI_1.3.8' not found
 RUN test -f /opt/altera/quartus/linux64/libstdc++.so.6 && rm -f /opt/altera/quartus/linux64/libstdc++.so.6
 RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/altera/quartus/linux64/
-
-## fix: setup udev rule for 'USB2 BLASTER' (separate JTagger), read/write permissions for user
-COPY 92-usbblaster.rules /etc/udev/rules.d/92-usbblaster.rules
 
 ## install modelsim 16.0 from the internet
 RUN cd /opt && wget $MIRROR160$MODELSIM
