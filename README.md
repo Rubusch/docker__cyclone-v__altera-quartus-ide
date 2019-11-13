@@ -58,7 +58,7 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6010", MODE="0666"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6810", MODE="0666"
 ```
 
-Reload udev and check.
+Still on host reload udev and check.
 ```
 $ sudo udevadm control --reload-rules && sudo udevadm trigger
 
