@@ -23,6 +23,9 @@ https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/index.html
 Download links for Quartus Editions (direct links, no Intel registration)  
 https://github.com/CTSRD-CHERI/quartus-install/blob/master/quartus-install.py
 
+Installation notes by Giuseppe Scollo, University of Catania, DMI  
+http://www.dmi.unict.it/~scollo/slidy/sd-2018/sd_e01/tips/QuartusInstall.txt
+
 JTAG  
 (remember product id can be 6810 or 6010, see comments)  
 https://gladdy.github.io/2017/03/18/Altera-udev.html
