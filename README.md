@@ -28,9 +28,46 @@ JTAG
 https://gladdy.github.io/2017/03/18/Altera-udev.html
 
 
+## Preparation
+
+On the host system, make sure the device of the board i.e. **/dev/bus/usb/<major>/<minor>** is accessible. 
+
+```
+$ lsusb | grep -i altera
+    Bus 001 Device 050: ID 09fb:6810 Altera
+```
+From the above take the path ``/dev/bus/usb/001/050``, and check the access rights (should be **666**).
+
+```
+$ sudo ls -l /dev/bus/usb/001/050
+    crw-rw-r-- 1 root root    189, 129 Nov 13 16:11 050
+```
+
+In this case setup the Intel udev rules (source: intel): ``/etc/udev/rules.d/92-blaster.rules`` with the following content:
+```
+# Intel FPGA Download Cable
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6001", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6002", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6003", MODE="0666"
+
+# Intel FPGA Download Cable II
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6010", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6810", MODE="0666"
+```
+
+Then still on the host, restart the udev services and check the permissions on the device handle.
+```
+$ sudo udevadm control --reload-rules && sudo udevadm trigger
+$ sudo ls -l /dev/bus/usb/001/
+    crw-rw-rw- 1 root root    189, 129 Nov 13 16:11 050
+```
+
+TODO: board cabeling and connection, picture
+
+
 ## Build
 
-Installation uses last release freely available on the net (in 2019)
+Installation uses last release freely available on the net (in 2019). The folder _docker_ stands for the corresponding docker__* version.
 
 ```
 $ cd docker
@@ -55,7 +92,7 @@ $ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /dev:/dev -v /tmp/.X11
 NB: the docker container does not serve for a safer environment, it is meant as a solution for archiving the quartus setup, as safe or dangerous as a native installation would be, e.g when bind mounting /dev.
 
 
-## ModelSim Installation
+## (opt.) ModelSim Installation
 
 ModelSim first has to be configured in Quartus.
 
