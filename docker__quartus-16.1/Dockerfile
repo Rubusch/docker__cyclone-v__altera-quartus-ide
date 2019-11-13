@@ -109,6 +109,13 @@ RUN cd /opt && ./$QUARTUS --mode unattended --unattendedmodeui minimal --install
 RUN test -f /opt/altera/quartus/linux64/libstdc++.so.6 && rm -f /opt/altera/quartus/linux64/libstdc++.so.6
 RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/altera/quartus/linux64/
 
+## fix: Inconsistency detected by ld.so: dl-close.c: 811: _dl_close: Assertion `map->l_init_called' failed!
+RUN cd /opt/altera/quartus/linux64 && mv libboost_system.so libboost_system_orig.so && updatedb
+# N.B: removal is the solution suggested by
+#    http://gruvin.me/2016/11/intel-quartus-16-1-fix-for-inconsistency-detected-by-ld-so-dl-close-c/
+# yet other Quartus-related software, e.g the Intel FPGA OpenCL SDK, badly needs
+# that library, so it's better to be able to restore the symlink upon need.
+
 ## install modelsim 16.0 from the internet
 RUN cd /opt && wget $MIRROR160$MODELSIM
 RUN cd /opt && chmod +x $MODELSIM
