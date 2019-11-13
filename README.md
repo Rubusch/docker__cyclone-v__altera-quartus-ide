@@ -33,20 +33,20 @@ https://gladdy.github.io/2017/03/18/Altera-udev.html
 
 ## Preparation
 
-On the host system, make sure the device of the board i.e. **/dev/bus/usb/<major>/<minor>** is accessible. 
+**On the host system**, make sure the device of the board i.e. ``/dev/bus/usb/<MAJOR>/<MINOR>`` is accessible.
 
 ```
 $ lsusb | grep -i altera
     Bus 001 Device 050: ID 09fb:6810 Altera
 ```
-From the above take the path ``/dev/bus/usb/001/050``, and check the access rights (should be **666**).
+From the above take the path ``/dev/bus/usb/001/050``, and check the access rights (permissions should be **666**).
 
 ```
 $ sudo ls -l /dev/bus/usb/001/050
     crw-rw-r-- 1 root root    189, 129 Nov 13 16:11 050
 ```
 
-In this case setup the Intel udev rules (source: intel): ``/etc/udev/rules.d/92-blaster.rules`` with the following content:
+In the above case (permissions: 664), setup an udev rule: ``/etc/udev/rules.d/92-blaster.rules`` with the following content:
 ```
 # Intel FPGA Download Cable
 SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6001", MODE="0666"
@@ -58,14 +58,15 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6010", MODE="0666"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6810", MODE="0666"
 ```
 
-Then still on the host, restart the udev services and check the permissions on the device handle.
+Reload udev and check.
 ```
 $ sudo udevadm control --reload-rules && sudo udevadm trigger
+
 $ sudo ls -l /dev/bus/usb/001/
     crw-rw-rw- 1 root root    189, 129 Nov 13 16:11 050
 ```
 
-TODO: board cabeling and connection, picture
+TODO: picture of board cabeling and connection
 
 
 ## Build
