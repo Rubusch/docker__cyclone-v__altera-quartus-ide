@@ -222,6 +222,11 @@ $ mv perl perl_old
 $ ln -s /usr/bin/perl
 ```
 
+* Software updates for 16.1: So, see first the Download and install instructions under the Combined Files tab in the aforementioned page and press the fat arrow on the right of Quartus-lite-16.1.0.196-linux.tar (not the _Updates Available_ link, which is close to the fat arrow but leads to the Updates tab). When the installation of the base software is done, then you may switch to the Updates tab and thereby perform the second phase, see Download and install instructions under this tab. You only need to download and install the Quartus Prime Software v16.1 Update 2, since it includes all previous updates.
+
+* A separate download and installation which should follow the previous ones is that of the Intel FPGA University Program software, which includes the Monitor Program, a few IP cores, and more. Download the University Program Installer tarball, intel_fpga_upds_setup.tar, from:  
+https://www.altera.com/support/training/university/materials-software.html#ifup_software_upds
+
 
 ## Known Errors with ModelSim
 
