@@ -31,7 +31,9 @@ JTAG
 https://gladdy.github.io/2017/03/18/Altera-udev.html
 
 
-## Preparation
+## Setup
+
+![Cabeling](pics/setup.jpg)
 
 **On the host system**, make sure the device of the board i.e. ``/dev/bus/usb/<MAJOR>/<MINOR>`` is accessible.
 
@@ -70,8 +72,6 @@ $ sudo ls -l /dev/bus/usb/001/
     crw-rw-rw- 1 root root    189, 129 Nov 13 16:11 050
 ```
 
-TODO: picture of board cabeling and connection
-
 
 ## Build
 
@@ -104,33 +104,16 @@ NB: the docker container does not serve for a safer environment, it is meant as 
 
 ModelSim first has to be configured in Quartus.
 
+
 ### Configure ModelSim in Quartus
 
-In quartus, go **Tools** -> **Options** -> **EDA Tool Options** and provide a valid path to the ```_ase``` version's bin under **ModelSim Altera**: ```_/opt/altera/modelsim_ase/bin/_```
+TODO license not valid??!!
+In quartus provide a valid path to the ``_ase`` version's bin under **ModelSim Altera**: ``_/opt/altera/modelsim_ase/bin/_``
 
-Then in an open project in Quartus, go **Assignments** -> **Settings** -> under **EDA Tool Settings** select **Simulation** (left side).
-
-
-
-### Setting up ModelSim
-
-The simulation page appears, fill out the following
- * **Tool name** : _ModelSim-Altera_
- * **Run gate-level simulation automatically after compilation** : _off_
- * under **EDA Netlist Writer Settings** -> **Format for output netlist** : _Verilog HDL_
- * **Map illegal HDL characters** : _off_
- * **Enable glitch filtering** : off
- * **Generate Value Change Dump (VCD) file script** : _off_
- * **NativeLink settings** : _None_
-
-Click on **ok**
-
-
-### Using ModelSim
-
-In Quartus, go **Processing** -> **Start** -> **Start Analysis & Elaboration**. This will take some seconds.
-
-After this was successfull, go **Tools** -> **Run Simulation Tool** -> **RTL Simulation**.
+![Tools -> Options](pics/ModelSim01.png)
+![EDA Tool Options](pics/ModelSim02.png)
+![Assingments ->  Settings](pics/ModelSim03.png)
+![Simulator Settings](pics/ModelSim04.png)
 
 
 ### Add Signals in ModelSim
@@ -140,6 +123,10 @@ In ModelSim, go to the **Library** window, open the **work** tree and rightclick
 Delete signals: In the wave window by marking, and then hitting the del key.
 
 Create signals: In the wave window rightclick the signal, e.g. clk, and select **Edit** -> **Create/Modify Waveform**: the create pattern wizzard appears!
+
+![Assingments ->  Settings](pics/ModelSim10.png)
+![Simulator Settings](pics/ModelSim11.png)
+
 
 Under patterns, select **Clock**
 
