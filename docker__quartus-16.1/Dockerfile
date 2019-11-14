@@ -82,8 +82,7 @@ RUN apt-get install -y   \
             x11-apps \
             firefox \
             dbus-x11 \
-            psutils \
-            dlocate
+            psutils
 
 # NOTE: Jamie Iles mentions to remove the following files in order to avoid sporadic instabilities
 # TODO check
@@ -111,7 +110,7 @@ RUN test -f /opt/altera/quartus/linux64/libstdc++.so.6 && rm -f /opt/altera/quar
 RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/altera/quartus/linux64/
 
 ## fix: Inconsistency detected by ld.so: dl-close.c: 811: _dl_close: Assertion `map->l_init_called' failed!
-RUN cd /opt/altera/quartus/linux64 && mv libboost_system.so libboost_system_orig.so && updatedb
+RUN cd /opt/altera/quartus/linux64 && mv libboost_system.so libboost_system_orig.so
 # N.B: removal is the solution suggested by
 #    http://gruvin.me/2016/11/intel-quartus-16-1-fix-for-inconsistency-detected-by-ld-so-dl-close-c/
 # yet other Quartus-related software, e.g the Intel FPGA OpenCL SDK, badly needs
