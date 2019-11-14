@@ -39,7 +39,11 @@ https://gladdy.github.io/2017/03/18/Altera-udev.html
 $ lsusb | grep -i altera
     Bus 001 Device 050: ID 09fb:6810 Altera
 ```
-From the above take the path ``/dev/bus/usb/001/050``, and check the access rights (permissions should be **666**).
+From the above take the path ``/dev/bus/usb/001/050``
+* Bus number: 001 -> running the container will need ``--privileged -v /dev/bus/usb/001:/dev/bus/usb/001``
+* Device number: 050
+
+Now check the access rights on host (permissions should be **666**).
 
 ```
 $ sudo ls -l /dev/bus/usb/001/050
@@ -91,7 +95,7 @@ $ docker images
 
 $ xhost +"local:docker@"
 
-$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /dev:/dev -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
+$ docker run --rm -ti --privileged -v /dev/bus/usb/001:/dev/bus/usb/001 -e DISPLAY=$DISPLAY -v /dev:/dev -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
 ```
 NB: the docker container does not serve for a safer environment, it is meant as a solution for archiving the quartus setup, as safe or dangerous as a native installation would be, e.g when bind mounting /dev.
 
@@ -212,8 +216,10 @@ $ sudo systemctl start docker
 
 * The "permission denied" may happen if you forget either to set the _-w_ directive, or the _-u_ directive, or both at the _docker run_ command, it then falls back to root and/or /root - best is to simply copy&paste the commands here.
 
-* JTAG connection: the programmer needs a udev rule. Use intel documented udev rules ``/etc/udev/rules.d/92-usbblaster.rules``, and make sure ``/dev/bus/usb/<major>/<minor>`` has permissions **666**, or set it manually inside the container (needs to be started manually then FIXME). Get major and minor number with **lsusb**. Manually restart and reload udev: ``$ sudo udevadm control --reload-rules && sudo udevadm trigger``. **Don't unplug the board and replug it!**  
-Optionally test the JTAG connection: ``$ /opt/altera/quartus/bin/jtagd --user-start --config ~/.jtagd.conf``, but probably this has no effect.
+* JTAG connection, or JTAG/USB Blaster Massacre.. Note the following:
+  * Host machine needs udev rule ``/etc/udev/rules.d/92-usbblaster.rules`` to give **666** permissions to the device handle for the usbblaster device.
+  * Container needs to be run with ``--privileged``, in order to allow something like ``ls -l /dev/bus/usb/001`` with user privileges
+  * Container needs to be run with ``-v /dev/bus/usb/001:/dev/bus/usb/001``, to re-mount dynamically by host's udev e.g. turn off device, and turn it on again wich will change the device number. BTW the bus (currently) is pretty stable and will stay the same.
 
 * If QSYS shows the error ``... Can't locate Getopt/Long.pm in @INC ...``, the following fix is documented:
 ```
