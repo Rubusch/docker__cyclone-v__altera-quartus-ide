@@ -107,7 +107,8 @@ ModelSim first has to be configured in Quartus.
 
 ### Configure ModelSim in Quartus
 
-TODO license not valid??!!
+TODO license for model sim not valid??!!   
+
 In quartus provide a valid path to the ``_ase`` version's bin under **ModelSim Altera**: ``_/opt/altera/modelsim_ase/bin/_``
 
 ![Tools -> Options](pics/ModelSim01.png)
