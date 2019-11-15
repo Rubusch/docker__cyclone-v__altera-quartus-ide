@@ -100,24 +100,31 @@ $ docker run --rm -ti --privileged -v /dev/bus/usb/001:/dev/bus/usb/001 -e DISPL
 NB: the docker container does not serve for a safer environment, it is meant as a solution for archiving the quartus setup, as safe or dangerous as a native installation would be, e.g when bind mounting /dev.
 
 
-## (opt.) ModelSim Installation
+## (opt) ModelSim
 
 ModelSim first has to be configured in Quartus.
 
 
 ### Configure ModelSim in Quartus
 
-TODO license for model sim not valid??!!   
+TODO: check setup for student / free license to use ModelSim
 
-In quartus provide a valid path to the ``_ase`` version's bin under **ModelSim Altera**: ``_/opt/altera/modelsim_ase/bin/_``
+In quartus provide a valid path to the ``_ase`` version's bin under **ModelSim Altera**: ``_/opt/altera/modelsim_ase/bin/_``. Configure the EDA Tool Options.
 
 ![Tools -> Options](pics/ModelSim01.png)
 ![EDA Tool Options](pics/ModelSim02.png)
+
+Configure the Simulator settings.
+
 ![Assingments ->  Settings](pics/ModelSim03.png)
 ![Simulator Settings](pics/ModelSim04.png)
 
 
 ### Add Signals in ModelSim
+
+Setup in Modelsim.
+
+![Assingments ->  Settings](pics/ModelSim10.png)
 
 In ModelSim, go to the **Library** window, open the **work** tree and rightclick the top level file of the project, and select **Create Wave**.
 
@@ -125,9 +132,7 @@ Delete signals: In the wave window by marking, and then hitting the del key.
 
 Create signals: In the wave window rightclick the signal, e.g. clk, and select **Edit** -> **Create/Modify Waveform**: the create pattern wizzard appears!
 
-![Assingments ->  Settings](pics/ModelSim10.png)
 ![Simulator Settings](pics/ModelSim11.png)
-
 
 Under patterns, select **Clock**
 
@@ -142,6 +147,12 @@ Click "Next"
  * "Duty Cycle**   : 50
 
 Click **Finish**
+
+
+## (opt) Arbiter Testbench
+
+TODO installation of Arbiter Testbench
+
 
 
 ## Debug
@@ -223,28 +234,27 @@ $ ln -s /usr/bin/perl
 https://www.altera.com/support/training/university/materials-software.html#ifup_software_upds
 
 
-## Known Errors with ModelSim
+*  ModelSim: "Can't launch ModelSim-Altera Simulation software -  make sure the software is properly installed and the environment variable LM_LICENSE_FILE or GGLS_LICENSE_FILE points to the correct license file."
+  **FIX**: run in the shell
+```
+$ /opt/altera/13.1/modelsim_ase/linuxaloem/vsimk
+```
+Illegal instruction (TODO: what was this again??)
+```
+$ /opt/altera/13.1/modelsim_ase/linuxaloem/vish
+```
 
- * "Can't launch ModelSim-Altera Simulation software -  make sure the software is properly installed and the environment variable LM_LICENSE_FILE or GGLS_LICENSE_FILE points to the correct license file."
-   **FIX**: run in the shell
-   ```
-   $ /opt/altera/13.1/modelsim_ase/linuxaloem/vsimk
-   ```
-   Illegal instruction (TODO: what was this again??)
-   ```
-   $ /opt/altera/13.1/modelsim_ase/linuxaloem/vish
-   ```
+* ModelSim: error while loading shared libraries
+```
+/opt/altera/13.1/modelsim_ase/linuxaloem/vish: error while loading shared
+libraries: libXft.so.2: cannot open shared object file: No such file or
+directory
+```
+**FIX**: install missing libraries as i386 version (btw. make sure that apt is able to handle :i386 packages, when installing into an 64bit system!)
+```
+$ sudo aptitude install libxft2:i386
+$ sudo aptitude install libncurses5:i386
+```
 
- * ```/opt/altera/13.1/modelsim_ase/linuxaloem/vish: error while loading shared
-   libraries: libXft.so.2: cannot open shared object file: No such file or
-   directory```
-   **FIX**: install missing libraries as i386 version (btw. make sure that apt is able to handle :i386 packages, when installing into an 64bit system!)
-   ```
-   $ sudo aptitude install libxft2:i386
-   $ sudo aptitude install libncurses5:i386
-   ```
-   TODO there was something with the iar.. libs package (x86 compatibility libraries)
-
-TODO installation of Arbiter Testbench
-
+TODO there was something with the iar.. libs package (x86 compatibility libraries)
 
