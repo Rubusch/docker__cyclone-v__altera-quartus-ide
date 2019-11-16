@@ -85,7 +85,7 @@ $ time docker build --build-arg USER=$USER -t rubuschl/cyclone-v-ide:$(date +%Y%
 
 ## Usage
 
-Find the correct tag as follows. Here we take _20191104161353_ as an example tag.
+Find the correct tag as follows. Here we take _20191104161353_ as an example tag. Make sure to use the correct bus, here **001**, identified above!
 
 ```
 $ docker images
@@ -95,7 +95,7 @@ $ docker images
 
 $ xhost +"local:docker@"
 
-$ docker run --rm -ti --privileged -v /dev/bus/usb/001:/dev/bus/usb/001 -e DISPLAY=$DISPLAY -v /dev:/dev -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
+$ docker run --rm -ti --privileged -v /dev/bus/usb/001:/dev/bus/usb/001 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
 ```
 NB: the docker container does not serve for a safer environment, it is meant as a solution for archiving the quartus setup, as safe or dangerous as a native installation would be, e.g when bind mounting /dev.
 
@@ -167,7 +167,7 @@ $ docker images
 
 $ xhost +"local:docker@"
 
-$ docker run --rm -ti --privileged -e DISPLAY=$DISPLAY -v /dev:/dev -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/$USER --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353 /bin/bash
+$ docker run --rm -ti --privileged -v /dev/bus/usb/001:/dev/bus/usb/001 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/$USER --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353 /bin/bash
 ```
 
 In the container start quartus as follows
