@@ -3,5 +3,10 @@
 ## prepare SDK environment
 source ~/env.sh
 
+## jtagd
+sudo killall jtagd
+jtagd
+jtagconfig
+
 ## start quartus
-quartus
+quartus --64bit
