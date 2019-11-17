@@ -30,6 +30,9 @@ JTAG
 (remember product id can be 6810 or 6010, see comments)  
 https://gladdy.github.io/2017/03/18/Altera-udev.html
 
+Intel University Program Material (by Quartus version)  
+https://www.intel.com/content/www/us/en/programmable/support/training/university/materials-ip-cores.html?&ifup_version=16.1
+
 
 ## Setup
 
