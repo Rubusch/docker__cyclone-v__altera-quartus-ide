@@ -121,7 +121,9 @@ RUN cd /opt/altera/quartus/linux64 && mv libboost_system.so libboost_system_orig
 RUN mkdir /etc/jtagd
 RUN cp /opt/altera/quartus/linux64/pgm_parts.txt /etc/jtagd/jtagd.pgm_parts
 
-
+## install: university program
+# TODO move this, interactive install, unclear what's the use
+#RUN cd /home/$USER/ && ./install_intel_fpga_upds
 
 ## install modelsim 16.0 from the internet
 RUN cd /opt && wget $MIRROR160$MODELSIM
