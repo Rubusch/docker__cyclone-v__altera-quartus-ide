@@ -117,6 +117,12 @@ RUN cd /opt/altera/quartus/linux64 && mv libboost_system.so libboost_system_orig
 # yet other Quartus-related software, e.g the Intel FPGA OpenCL SDK, badly needs
 # that library, so it's better to be able to restore the symlink upon need.
 
+## fix: jtagd configuration
+RUN mkdir /etc/jtagd
+RUN cp /opt/altera/quartus/linux64/pgm_parts.txt /etc/jtagd/jtagd.pgm_parts
+
+
+
 ## install modelsim 16.0 from the internet
 RUN cd /opt && wget $MIRROR160$MODELSIM
 RUN cd /opt && chmod +x $MODELSIM
