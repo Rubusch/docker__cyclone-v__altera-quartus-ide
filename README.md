@@ -108,26 +108,31 @@ NB: the docker container does not serve for a safer environment, it is meant as 
 ModelSim first has to be configured in Quartus.
 
 
-### Configure ModelSim in Quartus
+### Configure Quartus / ModelSim
 
-TODO: check setup for student / free license to use ModelSim
-
-In quartus provide a valid path to the ``_ase`` version's bin under **ModelSim Altera**: ``_/opt/altera/modelsim_ase/bin/_``. Configure the EDA Tool Options.
+In quartus provide a valid path to the ``_ase`` version's bin under **ModelSim Altera**: ``_/opt/altera/modelsim_ase/bin/_``.  
+Configure the EDA Tool in _Options_.
 
 ![Tools -> Options](pics/ModelSim01.png)
 ![EDA Tool Options](pics/ModelSim02.png)
 
-Configure the Simulator settings.
+Configure the Simulator in _Settings_.  
 
 ![Assingments ->  Settings](pics/ModelSim03.png)
 ![Simulator Settings](pics/ModelSim04.png)
 
 
-### Add Signals in ModelSim
-
-Setup in Modelsim.
+Build _Analysis and Elaboration_ of the specific project as a preparation for ModelSim.  
 
 ![Assingments ->  Settings](pics/ModelSim10.png)
+
+### Use ModelSim
+
+Start ModelSim.  
+
+![Simulator Settings](pics/ModelSim11.png)
+
+TODO  
 
 In ModelSim, go to the **Library** window, open the **work** tree and rightclick the top level file of the project, and select **Create Wave**.
 
@@ -135,7 +140,7 @@ Delete signals: In the wave window by marking, and then hitting the del key.
 
 Create signals: In the wave window rightclick the signal, e.g. clk, and select **Edit** -> **Create/Modify Waveform**: the create pattern wizzard appears!
 
-![Simulator Settings](pics/ModelSim11.png)
+
 
 Under patterns, select **Clock**
 
