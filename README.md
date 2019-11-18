@@ -140,8 +140,6 @@ Delete signals: In the wave window by marking, and then hitting the del key.
 
 Create signals: In the wave window rightclick the signal, e.g. clk, and select **Edit** -> **Create/Modify Waveform**: the create pattern wizzard appears!
 
-
-
 Under patterns, select **Clock**
 
  * **Start Time**   : 0
@@ -155,9 +153,6 @@ Click "Next"
  * "Duty Cycle**   : 50
 
 Click **Finish**
-
-
-## (opt) Arbiter Testbench
 
 TODO installation of Arbiter Testbench
 
