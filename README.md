@@ -36,8 +36,6 @@ https://www.intel.com/content/www/us/en/programmable/support/training/university
 
 ## Setup
 
-![Cabeling](pics/setup.jpg)
-
 **On the host system**, make sure the device of the board i.e. ``/dev/bus/usb/<MAJOR>/<MINOR>`` is accessible.
 
 ```
