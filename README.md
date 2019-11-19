@@ -94,8 +94,6 @@ $ docker images
     rubuschl/cyclone-v-ide   20191104161353      cbf4cb380168        24 minutes ago      15.5GB
     ubuntu                   xenial              5f2bf26e3524        4 days ago          123MB
 
-$ xhost +"local:docker@"
-
 $ docker run --rm -ti --privileged -v /dev/bus/usb/001:/dev/bus/usb/001 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /sys:/sys:ro -v $PWD/workspace:/home/user --user=$USER:$USER --workdir=/home/$USER rubuschl/cyclone-v-ide:20191104161353
 ```
 NB: the docker container does not serve for a safer environment, it is meant as a solution for archiving the quartus setup, as safe or dangerous as a native installation would be, e.g when bind mounting /dev.
@@ -182,6 +180,8 @@ docker$ quartus
 ## Issues
 
 * Working with the target for the DE1-SoC usually means to flash an SD card. The .sof files can be converted into .rbf files which then can also be loaded dynamically at runtime under the installed  Linux board support package (BSP) to the FPGA fabric. Further, for the DE1-SoC you may use a tftp boot and nfs setup as automation solution. As a hint, the Cyclone V SoC had quite some community support by EBV's Socrates Board users, thus the configuration for the altera/Socrates board also should run well for the terrasic/DE1-SoC board.
+
+* In some cases access to the xserver might be an issue, executing ``$ xhost +"local:docker@"`` solved the problem for me.
 
 * For hardware access, e.g. using Qsys, run the docker container with ```--privileged``` mode
 
