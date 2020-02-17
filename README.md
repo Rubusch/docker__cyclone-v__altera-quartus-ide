@@ -1,10 +1,10 @@
 # Container for my Cyclone V IDE: Altera Quartus
 
-Contains a Dockerfile for creating a docker image of the **Quartus 16.1** build environment for my **DE1-SoC Board (rev D)** from Terrasic (University Program).
+Contains a Dockerfile for creating a docker image of the **Quartus 16.1** build environment for my **DE1-SoC Board (rev D)** from Terrasic (University Program).  
 
-Building the image will install Quartus. Using a container from the image will start Quartus. Then ModelSim will be downloaded. ModelSim will be installed to _/opt/altera_ as well.
+Building the image will install Quartus. Using a container from the image will start Quartus. Then ModelSim will be downloaded. ModelSim will be installed to _/opt/altera_ as well.  
 
-The **workspace** folder will be mounted as /home/user inside the docker. It will serve as workspace and may kept under git outside the docker container.
+The **workspace** folder will be mounted as /home/user inside the docker. It will serve as workspace and may kept under git outside the docker container.  
 
 
 
@@ -106,13 +106,13 @@ ModelSim first has to be configured in Quartus.
 
 ### Configure Quartus / ModelSim
 
-In quartus provide a valid path to the ``_ase`` version's bin under **ModelSim Altera**: ``_/opt/altera/modelsim_ase/bin/_``.  
+In quartus provide a valid path to the ``_ase`` version's bin under **ModelSim Altera**: ``/opt/altera/modelsim_ase/bin/``.  
 Configure the EDA Tool in _Options_.
 
 ![Tools -> Options](pics/ModelSim01.png)
 ![EDA Tool Options](pics/ModelSim02.png)
 
-Configure the Simulator in _Settings_.  
+Having a project loaded, configure the Simulator in _Settings_.  
 
 ![Assingments ->  Settings](pics/ModelSim03.png)
 ![Simulator Settings](pics/ModelSim04.png)
@@ -122,33 +122,33 @@ Build _Analysis and Elaboration_ of the specific project as a preparation for Mo
 
 ![Assingments ->  Settings](pics/ModelSim10.png)
 
+
+
 ### Use ModelSim
 
 Start ModelSim.  
 
 ![Simulator Settings](pics/ModelSim11.png)
 
-TODO  
+In ModelSim, go to the **Library** window, open the **work** tree and rightclick the top level file of the project, and select **Create Wave**.  
 
-In ModelSim, go to the **Library** window, open the **work** tree and rightclick the top level file of the project, and select **Create Wave**.
+Delete signals: In the wave window by marking, and then hitting the del key.  
 
-Delete signals: In the wave window by marking, and then hitting the del key.
+Create signals: In the wave window rightclick the signal, e.g. clk, and select **Edit** -> **Create/Modify Waveform**: the create pattern wizzard appears!  
 
-Create signals: In the wave window rightclick the signal, e.g. clk, and select **Edit** -> **Create/Modify Waveform**: the create pattern wizzard appears!
-
-Under patterns, select **Clock**
+Under patterns, select **Clock**  
 
  * **Start Time**   : 0
  * **End Time**     : 5000
  * **Time Unit**    : ns
 
-Click "Next"
+Click "Next"  
 
  * "Clock Period** : 100
  * "Time Unit**    : ns
  * "Duty Cycle**   : 50
 
-Click **Finish**
+Click **Finish**  
 
 TODO installation of Arbiter Testbench
 
