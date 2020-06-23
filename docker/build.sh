@@ -4,7 +4,7 @@
 source ~/env.sh
 
 ## jtagd
-sudo killall jtagd
+sudo killall jtagd &> /dev/null
 jtagd
 jtagconfig
 
